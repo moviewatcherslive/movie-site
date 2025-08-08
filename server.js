@@ -4,19 +4,19 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// EJS सेटअप
+// EJS setup
 app.set('view engine', 'ejs');
-app.set('views', __dirname);
+app.set('views', path.join(__dirname, 'views'));
 
-// Static फाइल्स के लिए फोल्डर
+// Static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// होम पेज रेंडर करना
+// Home page
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index'); // views/index.ejs
 });
 
-// सर्वर स्टार्ट
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
