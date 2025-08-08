@@ -1,7 +1,14 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #111;
-    color: #fff;
-    text-align: center;
-    padding-top: 50px;
-}
+*{box-sizing:border-box;font-family:Inter,Roboto,Arial,sans-serif}
+body{margin:0;background:#f7f9fc;color:#111}
+.site-header{padding:18px;text-align:center;background:linear-gradient(90deg,#0b75d1,#60a5fa);color:#fff}
+.container{max-width:1100px;margin:20px auto;padding:0 12px}
+h2{margin:18px 0 8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.card{background:#fff;padding:10px;border-radius:8px;box-shadow:0 6px 18px rgba(15,23,42,0.06);text-align:center}
+.card img{width:100%;height:270px;object-fit:cover;border-radius:6px}
+.play{margin-top:8px;padding:8px 10px;border-radius:6px;border:none;background:#0b75d1;color:#fff;cursor:pointer}
+.ad-slot{margin:12px 0;padding:18px;border:2px dashed #cbd5e1;border-radius:8px;text-align:center;color:#666;background:#fff}
+.site-footer{padding:12px;text-align:center;color:#6b7280;margin-bottom:30px}
+.modal{display:none;position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,0.6);align-items:center;justify-content:center}
+.modal-content{position:relative;margin:20px auto;background:#fff;padding:12px;border-radius:8px;max-width:90%;width:640px}
+#close{position:absolute;right:8px;top:8px;padding:6px;border:none;background:#ef4444;color:#fff;border-radius:6px;cursor:pointer}

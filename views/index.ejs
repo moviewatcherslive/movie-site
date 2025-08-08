@@ -1,11 +1,96 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Movie Site Live</title>
-    <link rel="stylesheet" href="/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Movie Demo — Bollywood, Hollywood & OTT</title>
+  <link rel="stylesheet" href="/style.css">
+  <!-- AdSense placeholder: replace with your AdSense code after approval -->
+  <!-- Example: <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
 </head>
 <body>
-    <h1>🎬 Movie Site Live!</h1>
-    <p>Bollywood, Hollywood & OTT Updates Coming Soon...</p>
+  <header class="site-header">
+    <h1>🎬 Movie Demo</h1>
+    <p>Bollywood • Hollywood • OTT — demo site</p>
+  </header>
+
+  <main class="container">
+    <!-- Ad slot top (placeholder) -->
+    <div class="ad-slot">Ad Slot (replace with AdSense code)</div>
+
+    <section>
+      <h2>Bollywood</h2>
+      <div class="grid">
+        <% demo.bollywood.forEach(m => { %>
+          <article class="card">
+            <img src="<%= m.poster %>" alt="<%= m.title %> poster">
+            <h3><%= m.title %></h3>
+            <button class="play" data-src="<%= m.trailer %>">Watch Trailer</button>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+
+    <section>
+      <h2>Hollywood</h2>
+      <div class="grid">
+        <% demo.hollywood.forEach(m => { %>
+          <article class="card">
+            <img src="<%= m.poster %>" alt="<%= m.title %> poster">
+            <h3><%= m.title %></h3>
+            <button class="play" data-src="<%= m.trailer %>">Watch Trailer</button>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+
+    <section>
+      <h2>OTT</h2>
+      <div class="grid">
+        <% demo.ott.forEach(m => { %>
+          <article class="card">
+            <img src="<%= m.poster %>" alt="<%= m.title %> poster">
+            <h3><%= m.title %></h3>
+            <button class="play" data-src="<%= m.trailer %>">Watch Trailer</button>
+          </article>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- Ad slot middle (placeholder) -->
+    <div class="ad-slot">Ad Slot (replace with AdSense code)</div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Demo site — replace demo data with TMDB API later.</p>
+  </footer>
+
+  <!-- Trailer modal -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <button id="close">Close</button>
+      <iframe id="player" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+<script>
+document.addEventListener('click', function(e){
+  if(e.target && e.target.matches('.play')){
+    const src = e.target.getAttribute('data-src');
+    const modal = document.getElementById('modal');
+    const player = document.getElementById('player');
+    player.src = src;
+    modal.style.display = 'block';
+    modal.setAttribute('aria-hidden','false');
+  }
+  if(e.target && e.target.id==='close'){
+    const modal = document.getElementById('modal');
+    const player = document.getElementById('player');
+    player.src = '';
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden','true');
+  }
+});
+</script>
 </body>
 </html>
