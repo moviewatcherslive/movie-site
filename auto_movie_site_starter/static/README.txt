@@ -1,0 +1,1 @@
+Place any static assets here (logo, css) to copy to public/ on generate.

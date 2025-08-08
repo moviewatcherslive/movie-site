@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Auto Entertainment Hub</title>
+  <style>
+    body{font-family:Inter,Roboto,Arial;background:#fff;margin:0;padding:16px;color:#111}
+    header{display:flex;align-items:center;justify-content:space-between}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+    .card{border:1px solid #eee;padding:10px;border-radius:8px;background:#fafafa}
+    a{color:#0b75d1;text-decoration:none}
+    footer{margin-top:24px;color:#666;font-size:13px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Auto Entertainment Hub</h1>
+    <div>Updated: <small><%= generatedAt %></small></div>
+  </header>
+
+  <section>
+    <h2>Latest News</h2>
+    <div class="grid">
+      <% news.forEach(n=>{ %>
+        <div class="card"><strong><%= n.source %></strong><br/>
+        <a href="<%= n.link %>" target="_blank" rel="noopener"><%= n.title %></a><br/>
+        <small><%= n.pubDate %></small></div>
+      <% }) %>
+    </div>
+  </section>
+
+  <section>
+    <h2>Popular Movies (TMDB)</h2>
+    <div class="grid">
+      <% movies.forEach(m=>{ %>
+        <div class="card">
+          <strong><%= m.title || m.name %></strong><br/>
+          <small>Release: <%= m.release_date || m.first_air_date %></small><br/>
+          <a href="https://www.themoviedb.org/<%= m.title ? 'movie' : 'tv' %>/<%= m.id %>" target="_blank">View on TMDB</a>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+  <section>
+    <h2>Popular TV Shows (TMDB)</h2>
+    <div class="grid">
+      <% tv.forEach(t=>{ %>
+        <div class="card">
+          <strong><%= t.name %></strong><br/>
+          <small>First air: <%= t.first_air_date %></small><br/>
+          <a href="https://www.themoviedb.org/tv/<%= t.id %>" target="_blank">View on TMDB</a>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+  <footer>
+    <p>Auto-updating site using TMDB & RSS feeds. For production, get TMDB API key and set it in your CI secrets. Do not republish copyrighted full articles; this site links to original sources.</p>
+  </footer>
+</body>
+</html>
