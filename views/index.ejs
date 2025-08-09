@@ -1,96 +1,52 @@
 <!doctype html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Movie Demo — Bollywood, Hollywood & OTT</title>
+  <title>🎬 Movie Site — Live Data</title>
   <link rel="stylesheet" href="/style.css">
-  <!-- AdSense placeholder: replace with your AdSense code after approval -->
-  <!-- Example: <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
 </head>
 <body>
   <header class="site-header">
-    <h1>🎬 Movie Demo</h1>
-    <p>Bollywood • Hollywood • OTT — demo site</p>
+    <h1>🎬 Movie Site</h1>
+    <p>Bollywood • Hollywood • OTT — Live from TMDB API</p>
   </header>
 
   <main class="container">
-    <!-- Ad slot top (placeholder) -->
-    <div class="ad-slot">Ad Slot (replace with AdSense code)</div>
-
-    <section>
-      <h2>Bollywood</h2>
-      <div class="grid">
-        <% demo.bollywood.forEach(m => { %>
-          <article class="card">
-            <img src="<%= m.poster %>" alt="<%= m.title %> poster">
-            <h3><%= m.title %></h3>
-            <button class="play" data-src="<%= m.trailer %>">Watch Trailer</button>
-          </article>
-        <% }) %>
-      </div>
-    </section>
-
-    <section>
-      <h2>Hollywood</h2>
-      <div class="grid">
-        <% demo.hollywood.forEach(m => { %>
-          <article class="card">
-            <img src="<%= m.poster %>" alt="<%= m.title %> poster">
-            <h3><%= m.title %></h3>
-            <button class="play" data-src="<%= m.trailer %>">Watch Trailer</button>
-          </article>
-        <% }) %>
-      </div>
-    </section>
-
-    <section>
-      <h2>OTT</h2>
-      <div class="grid">
-        <% demo.ott.forEach(m => { %>
-          <article class="card">
-            <img src="<%= m.poster %>" alt="<%= m.title %> poster">
-            <h3><%= m.title %></h3>
-            <button class="play" data-src="<%= m.trailer %>">Watch Trailer</button>
-          </article>
-        <% }) %>
-      </div>
-    </section>
-
-    <!-- Ad slot middle (placeholder) -->
-    <div class="ad-slot">Ad Slot (replace with AdSense code)</div>
+    <div id="movies" class="grid"></div>
   </main>
 
   <footer class="site-footer">
-    <p>Demo site — replace demo data with TMDB API later.</p>
+    <p>Live movie data from TMDB API</p>
   </footer>
 
-  <!-- Trailer modal -->
-  <div id="modal" class="modal" aria-hidden="true">
-    <div class="modal-content">
-      <button id="close">Close</button>
-      <iframe id="player" width="560" height="315" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </div>
-
 <script>
-document.addEventListener('click', function(e){
-  if(e.target && e.target.matches('.play')){
-    const src = e.target.getAttribute('data-src');
-    const modal = document.getElementById('modal');
-    const player = document.getElementById('player');
-    player.src = src;
-    modal.style.display = 'block';
-    modal.setAttribute('aria-hidden','false');
+const apiKey = "cca39a1c2540c174b93f3cba8e58c992"; // तुम्हारी API key
+
+async function fetchMovies() {
+  try {
+    const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=hi-IN&page=1`);
+    const data = await res.json();
+
+    const moviesContainer = document.getElementById("movies");
+    moviesContainer.innerHTML = "";
+
+    data.results.forEach(movie => {
+      const movieEl = document.createElement("div");
+      movieEl.className = "card";
+      movieEl.innerHTML = `
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+        <h3>${movie.title}</h3>
+        <p>⭐ ${movie.vote_average}</p>
+      `;
+      moviesContainer.appendChild(movieEl);
+    });
+  } catch (error) {
+    console.error("Error fetching movies:", error);
   }
-  if(e.target && e.target.id==='close'){
-    const modal = document.getElementById('modal');
-    const player = document.getElementById('player');
-    player.src = '';
-    modal.style.display = 'none';
-    modal.setAttribute('aria-hidden','true');
-  }
-});
+}
+
+document.addEventListener("DOMContentLoaded", fetchMovies);
 </script>
 </body>
 </html>
